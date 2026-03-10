@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Screen</title>
+    <style>
+        /* ── Keyframe Animations ─────────────────────────── */
+        @keyframes bgShift {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeSlideDown {
+            from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+            to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        @keyframes fadeSlideLeft {
+            from { opacity: 0; transform: translateX(40px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeSlideRight {
+            from { opacity: 0; transform: translateX(-40px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50%      { transform: translateY(-6px); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+            50%       { box-shadow: 0 8px 30px rgba(0,123,255,0.35); }
+        }
+        @keyframes btnPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0,123,255,0.5); }
+            50%       { box-shadow: 0 0 0 8px rgba(0,123,255,0); }
+        }
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            30%       { transform: translateY(-6px) scale(1.15); }
+            60%       { transform: translateY(2px) scale(0.95); }
+        }
+        @keyframes iconSpin {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+        @keyframes resultPop {
+            0%   { transform: scale(1); }
+            40%  { transform: scale(1.18); }
+            100% { transform: scale(1); }
+        }
+        @keyframes clockPulse {
+            0%, 100% { box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+            50%       { box-shadow: 0 0 14px 4px rgba(100,200,255,0.3); }
+        }
+        @keyframes widgetGlow {
+            0%, 100% { border-color: rgba(255,255,255,0.12); }
+            50%       { border-color: rgba(79,195,247,0.45); }
+        }
+        @keyframes tempPulse {
+            0%, 100% { color: #4fc3f7; }
+            50%       { color: #81d4fa; }
+        }
+        @keyframes shimmer {
+            0%   { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #e0e8ff, #f0f2f5, #e8f4fd, #edf5e0, #f5e8fd);
+            background-size: 400% 400%;
+            animation: bgShift 12s ease infinite;
+        }
+        .login-container {
+            background-color: white;
+            padding: 2.5rem 2rem;
+            /* Diagonal pill: top-right & bottom-left fully rounded, others sharp */
+            border-radius: 0 4rem 0 4rem;
+            width: 100%;
+            max-width: 340px;
+            animation: fadeSlideUp 0.7s ease both, float 6s ease-in-out 1s infinite, pulseGlow 4s ease-in-out infinite;
+        }
+        .login-container h2 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 999px; /* pill */
+            box-sizing: border-box;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #fafbff;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(0,123,255,.18);
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, #007bff, #00c6ff);
+            color: white;
+            border: none;
+            border-radius: 999px; /* pill */
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            animation: btnPulse 2.5s ease-in-out infinite;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #0056b3, #0099cc);
+            transform: scale(1.04);
+            box-shadow: 0 6px 20px rgba(0,123,255,0.4);
+        }
+        button:active {
+            transform: scale(0.97);
+        }
+        #message {
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            min-height: 1.2rem;
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+
+        /* World clocks – top center */
+        #worldClocks {
+            position: fixed;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+            background: rgba(0,0,0,0.45);
+            padding: 8px 16px 6px;
+            border-radius: 12px;
+            backdrop-filter: blur(4px);
+            animation: fadeSlideDown 0.6s ease 0.2s both;
+        }
+        .world-clock {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            transition: transform 0.2s;
+        }
+        .world-clock:hover { transform: scale(1.08) translateY(-3px); }
+        .world-clock canvas {
+            border-radius: 50%;
+            animation: clockPulse 3s ease-in-out infinite;
+        }
+        .world-clock:nth-child(1) canvas { animation-delay: 0s; }
+        .world-clock:nth-child(2) canvas { animation-delay: 0.6s; }
+        .world-clock:nth-child(3) canvas { animation-delay: 1.2s; }
+        .world-clock:nth-child(4) canvas { animation-delay: 1.8s; }
+        .world-clock:nth-child(5) canvas { animation-delay: 2.4s; }
+        .world-clock .tz-label {
+            color: #fff;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Currency Converter – bottom right */
+        #currencyConverter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(15, 15, 25, 0.88);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            padding: 14px 16px 12px;
+            width: 220px;
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            font-size: 13px;
+            animation: fadeSlideLeft 0.6s ease 0.4s both, widgetGlow 4s ease-in-out 1s infinite;
+        }
+        #currencyConverter h4 {
+            margin: 0 0 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #aaa;
+        }
+        .cc-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        .cc-row input[type="number"] {
+            width: 80px;
+            padding: 5px 7px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+        }
+        .cc-row input[type="number"]:focus {
+            border-color: #007bff;
+        }
+        .cc-row select {
+            flex: 1;
+            padding: 5px 4px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 12px;
+            outline: none;
+            cursor: pointer;
+        }
+        .cc-row select option { background: #1a1a2e; color: #fff; }
+        .cc-swap {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            color: #aaa;
+            width: 26px;
+            height: 26px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            transition: color 0.2s, border-color 0.2s, transform 0.3s;
+            padding: 0;
+            animation: none; /* override generic button pulse */
+        }
+        .cc-swap:hover { color: #fff; border-color: #007bff; transform: rotate(180deg) scale(1.2); }
+        #cc-result {
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: #4fc3f7;
+            min-height: 20px;
+        }
+        #cc-rate-note {
+            text-align: center;
+            font-size: 10px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        /* Weather Widget – bottom left */
+        #weatherWidget {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(15, 15, 25, 0.88);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            padding: 14px 16px 12px;
+            width: 200px;
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            font-size: 13px;
+            animation: fadeSlideRight 0.6s ease 0.6s both, widgetGlow 4s ease-in-out 2s infinite;
+        }
+        #weatherWidget h4 {
+            margin: 0 0 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #aaa;
+        }
+        #weather-icon {
+            font-size: 36px;
+            text-align: center;
+            line-height: 1;
+            margin-bottom: 4px;
+            display: inline-block;
+            width: 100%;
+            animation: iconBounce 3s ease-in-out infinite;
+        }
+        #weather-icon.spin {
+            animation: iconSpin 1.2s linear infinite;
+        }
+        #weather-temp {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 700;
+            animation: tempPulse 3s ease-in-out infinite;
+        }
+        #weather-desc {
+            text-align: center;
+            font-size: 12px;
+            color: #ccc;
+            margin: 2px 0 8px;
+        }
+        #weather-location {
+            text-align: center;
+            font-size: 11px;
+            color: #aaa;
+            margin-bottom: 6px;
+        }
+        .weather-detail {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #bbb;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 6px;
+            margin-top: 4px;
+        }
+        #weather-status {
+            text-align: center;
+            font-size: 11px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Welcome Back</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autocomplete="current-password">
+            </div>
+            <button type="submit">Log In</button>
+        </form>
+        <div id="message"></div>
+    </div>
+    <!-- World Clocks -->
+    <div id="worldClocks">
+        <div class="world-clock">
+            <canvas id="clock-us" width="70" height="70" data-tz="America/New_York"></canvas>
+            <span class="tz-label">🇺🇸 US</span>
+        </div>
+        <div class="world-clock">
+            <canvas id="clock-uk" width="70" height="70" data-tz="Europe/London"></canvas>
+            <span class="tz-label">🇬🇧 UK</span>
+        </div>
+        <div class="world-clock">
+            <canvas id="clock-ru" width="70" height="70" data-tz="Europe/Moscow"></canvas>
+            <span class="tz-label">🇷🇺 Russia</span>
+        </div>
+        <div class="world-clock">
+            <canvas id="clock-jp" width="70" height="70" data-tz="Asia/Tokyo"></canvas>
+            <span class="tz-label">🇯🇵 Japan</span>
+        </div>
+        <div class="world-clock">
+            <canvas id="clock-cn" width="70" height="70" data-tz="Asia/Shanghai"></canvas>
+            <span class="tz-label">🇨🇳 China</span>
+        </div>
+    </div>
+    <!-- Currency Converter -->
+    <div id="currencyConverter">
+        <h4>💱 Currency Converter</h4>
+        <div class="cc-row">
+            <input type="number" id="cc-amount" value="1" min="0" step="any">
+            <select id="cc-from">
+                <option value="USD">USD 🇺🇸</option>
+                <option value="EUR">EUR 🇪🇺</option>
+                <option value="GBP">GBP 🇬🇧</option>
+                <option value="JPY">JPY 🇯🇵</option>
+                <option value="CNY">CNY 🇨🇳</option>
+                <option value="RUB">RUB 🇷🇺</option>
+                <option value="INR">INR 🇮🇳</option>
+                <option value="CAD">CAD 🇨🇦</option>
+                <option value="AUD">AUD 🇦🇺</option>
+                <option value="CHF">CHF 🇨🇭</option>
+            </select>
+        </div>
+        <button class="cc-swap" id="cc-swap-btn" title="Swap currencies">⇅</button>
+        <div class="cc-row">
+            <select id="cc-to" style="flex:1">
+                <option value="USD">USD 🇺🇸</option>
+                <option value="EUR" selected>EUR 🇪🇺</option>
+                <option value="GBP">GBP 🇬🇧</option>
+                <option value="JPY">JPY 🇯🇵</option>
+                <option value="CNY">CNY 🇨🇳</option>
+                <option value="RUB">RUB 🇷🇺</option>
+                <option value="INR">INR 🇮🇳</option>
+                <option value="CAD">CAD 🇨🇦</option>
+                <option value="AUD">AUD 🇦🇺</option>
+                <option value="CHF">CHF 🇨🇭</option>
+            </select>
+        </div>
+        <div id="cc-result">—</div>
+        <div id="cc-rate-note">Static reference rates · not financial advice</div>
+    </div>
+
+    <!-- Weather Widget -->
+    <div id="weatherWidget">
+        <h4>🌤 Weather</h4>
+        <div id="weather-icon">⏳</div>
+        <div id="weather-temp">--°C</div>
+        <div id="weather-desc">Fetching...</div>
+        <div id="weather-location"></div>
+        <div class="weather-detail">
+            <span id="weather-humidity">💧 --%</span>
+            <span id="weather-wind">💨 -- km/h</span>
+        </div>
+        <div id="weather-status"></div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>
