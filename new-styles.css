@@ -1,0 +1,70 @@
+  1. Execute a command with pipes (e.g., `ls | grep ".js"`)
+  2. Run a multi-command chain with `&&` (e.g., `mkdir test && cd test && touch file.txt`)
+  3. Execute a command with conditional execution (e.g., `test -d folder || mkdir folder`)
+  4. Run a command with subshells (e.g., `echo $(date)`)
+  5. Execute a command with background processes (e.g., `sleep 5 &`)/* New CSS file with styling rules */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.success {
+  color: green;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+#timer {
+  background-color: #e9ecef;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  color: #495057;
+  margin-top: 15px;
+}

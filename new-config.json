@@ -1,0 +1,27 @@
+{
+  "appName": "New Application",
+  "version": "1.0.0",
+  "description": "A demonstration web application",
+  "author": "Cline",
+  "settings": {
+    "theme": {
+      "primaryColor": "#007bff",
+      "secondaryColor": "#6c757d",
+      "backgroundColor": "#f4f4f4"
+    },
+    "features": {
+      "enableAnimations": true,
+      "showTooltips": true,
+      "autoSave": false
+    },
+    "api": {
+      "baseUrl": "https://api.example.com",
+      "timeout": 30000
+    }
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "vue": "^3.2.0",
+    "lodash": "^4.17.21"
+  }
+}

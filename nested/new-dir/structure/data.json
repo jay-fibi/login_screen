@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "created": "2026-03-10T22:11:00Z",
+    "author": "Cline",
+    "description": "Sample data file in nested directory structure"
+  },
+  "data": {
+    "users": [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john@example.com",
+        "role": "admin"
+      },
+      {
+        "id": 2,
+        "name": "Jane Smith",
+        "email": "jane@example.com",
+        "role": "user"
+      }
+    ],
+    "settings": {
+      "theme": "light",
+      "notifications": true,
+      "language": "en"
+    }
+  }
+}
